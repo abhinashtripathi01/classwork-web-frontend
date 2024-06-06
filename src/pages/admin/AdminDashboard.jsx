@@ -232,4 +232,3 @@ export default AdminDashboard
 // //Based on _id (Admin Dashboard)
 //Transport '_id' to update product
 //receive in update product page
-

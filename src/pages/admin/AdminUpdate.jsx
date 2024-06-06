@@ -62,23 +62,16 @@ const AdminUpdate = () => {
 
                     </form>
                     <div className='image section'>
-                        <h1>Image</h1>
+                        <h6>Old Image Preview</h6>
+                        <img className = 'img-fluid object-fit-cover rounded-4' height={'100px'} width={'100px'} src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ718nztPNJfCbDJjZG8fOkejBnBAeQw5eAUA&s"></img>
+
+                        {
+                            previewNewImage && <div> 
+                                <h6>New Image Preview</h6>
+                                <img className = 'img-fluid object-fit-cover rounded-4' height={'300px'} width={'300px'} src ={previewNewImage}></img>
+                            </div>
+                        }
                     </div>
-
-                    <h6>Old Image Preview</h6>
-                    <img className='img-fluid object-fit-cover rounded-4' height={'300px'} width={'300px'} src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_Nepal.svg/1200px-Flag_of_Nepal.svg.png' alt=''/>
-
-                    {
-                        previewNewImage && <div>
-                            <h6>
-                                New Image Preview
-                            </h6>
-                            <img className='img-fluid object-fit-cover rounded-4' height={'300px'} width={'300px'} src={previewNewImage} alt=""/>
-                        </div>
-                    }
-
-
-
                 </div>
 
             </div>
@@ -86,4 +79,4 @@ const AdminUpdate = () => {
     )
 }
 
-export default AdminUpdate
+export default AdminUpdate;
