@@ -1,31 +1,42 @@
 import axios from "axios";
-  //creating an instance of axios
 
-  const Api = axios.create({
+// creating an instance of axios
+const Api = axios.create({
     baseURL : "http://localhost:8000",
     withCredentials : true,
     headers : {
-        "content-Type" : "multipart/form-data"
+        "Content-Type" : "multipart/form-data",
     }
+});
 
-  });
+// creating authorization config
+const config = {
+    headers : {
+        'authorization' : `Bearer ${localStorage.getItem('token')}`
+    }
+}
 
+
+// Creating test api
 export const testApi = () => Api.get('/test')
 
-//creating register api
+// Creating register api
+export const registerUserApi = (data) => Api.post('/api/user/create', data)
 
-
-export const registerUserApi = (data) => Api.post('/api/user/create',data)
-
-
-//creating login api
-export const loginUserApi = (data) => Api.post('api/user/login',data)
+// Creating login api
+export const loginUserApi = (data) => Api.post('/api/user/login', data)
 
 // create product create api
-export const createProductApi = (data) => Api.post('/api/product/create',data)
+export const createProductApi = (data) => Api.post('/api/product/create', data)
 
 // fetch all products
-export const getAllProducts = () => Api.get('/api/product/get_all_products')
+export const getAllProducts = () => Api.get('/api/product/get_all_products', config)
 
 //fetch single product
-export const getSingleProduct = (id) => Api.get(`/api/product/get_single_product/${id}`)
+export const getSingleProduct = (id) => Api.get(`/api/product/get_single_product/${id}`, config)
+
+// delete product (Task)
+export const deleteProduct = (id) => Api.delete(`/api/product/delete_product/${id}`)
+
+
+// http://localhost:5000/test

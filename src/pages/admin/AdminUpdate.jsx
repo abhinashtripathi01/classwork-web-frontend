@@ -1,8 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { getSingleProduct } from '../../apis/Api'
 
 const AdminUpdate = () => {
     // get id from url
+    const {id} = useParams()
+
     // get product information (Backend)
+    useEffect(() => {
+        getSingleProduct(id).then((res) => {
+            console.log(res.data)
+
+            // setting data to show in UI
+            setProductName(res.data.product.productName)
+            setProductPrice(res.data.product.productPrice)
+            setProductDescription(res.data.product.productDescription)
+            setProductCategory(res.data.product.productCategory)
+            setOldImage(res.data.product.productImage)
+
+        }).catch((error)=>{
+            console.log(error)
+        })
+    },[])
+
     // fill all the info in each fields
 
     // make a use state
@@ -23,29 +43,22 @@ const AdminUpdate = () => {
         setPreviewNewImage(URL.createObjectURL(file))
     }
 
-
-
-
-
-
-
-
     return (
         <>
             <div className='container mt-3'>
 
-                <h2>Update product for <span className='text-danger'>'Flower'</span></h2>
+                <h2>Update product for <span className='text-danger'>'{productName}'</span></h2>
 
                 <div className='d-flex gap-3'>
                     <form action="">
                         <label htmlFor="">Product Name</label>
-                        <input onChange={(e) => setProductName(e.target.value)} className='form-control' type="text" placeholder='Enter your product name' />
+                        <input value={productName} onChange={(e) => setProductName(e.target.value)} className='form-control' type="text" placeholder='Enter your product name' />
 
                         <label className='mt-2' htmlFor="">Product Price</label>
-                        <input onChange={(e) => setProductPrice(e.target.value)} className='form-control' type="number" placeholder='Enter your product name' />
+                        <input value={productPrice} onChange={(e) => setProductPrice(e.target.value)} className='form-control' type="number" placeholder='Enter your product name' />
 
                         <label className='mt-2'>Choose category</label>
-                        <select onChange={(e) => setProductCategory(e.target.value)} className='form-control'>
+                        <select value={productCategory} onChange={(e) => setProductCategory(e.target.value)} className='form-control'>
                             <option value="plants">Plants</option>
                             <option value="electronics">Electronics</option>
                             <option value="gadgets">Gadgets</option>
@@ -53,7 +66,7 @@ const AdminUpdate = () => {
                         </select>
 
                         <label className='mt-2'>Enter description</label>
-                        <textarea onChange={(e) => setProductDescription(e.target.value)} className='form-control'></textarea>
+                        <textarea value={productDescription} onChange={(e) => setProductDescription(e.target.value)} className='form-control'></textarea>
 
                         <label className='mt-2'>Choose product Image</label>
                         <input onChange={handleImage} type="file" className='form-control' />
@@ -62,15 +75,17 @@ const AdminUpdate = () => {
 
                     </form>
                     <div className='image section'>
+                        
                         <h6>Old Image Preview</h6>
-                        <img className = 'img-fluid object-fit-cover rounded-4' height={'100px'} width={'100px'} src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ718nztPNJfCbDJjZG8fOkejBnBAeQw5eAUA&s"></img>
+                        <img className='img-fluid object-fit-cover rounded-4' height={'200px'} width={'200px'} src={`http://localhost:5000/products/${oldImage}`} alt="" />
 
                         {
-                            previewNewImage && <div> 
+                            previewNewImage && <div>
                                 <h6>New Image Preview</h6>
-                                <img className = 'img-fluid object-fit-cover rounded-4' height={'300px'} width={'300px'} src ={previewNewImage}></img>
+                                <img className='img-fluid object-fit-cover rounded-4' height={'200px'} width={'200px'} src={previewNewImage} alt="" />
                             </div>
                         }
+
                     </div>
                 </div>
 
@@ -79,4 +94,7 @@ const AdminUpdate = () => {
     )
 }
 
-export default AdminUpdate;
+export default AdminUpdate
+
+
+// https://codeshare.io/3y97gm
